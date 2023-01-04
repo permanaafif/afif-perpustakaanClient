@@ -39,9 +39,6 @@ public class FormPengembalian extends javax.swing.JFrame {
         return txtPengembalianId;
     }
 
-    public JTextField getTxtTanggalDikemballikan() {
-        return txtTanggalDikemballikan;
-    }
 
     
     /**
@@ -135,11 +132,11 @@ public class FormPengembalian extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Pengembalian Id", "Peminjaman Id", "Tgl Dikembalikan", "Telat", "Denda"
+                "Pengembalian Id", "Peminjaman Id", "Tgl Dikembalikan", "Telat", "Denda", "Nama"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, true, true
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

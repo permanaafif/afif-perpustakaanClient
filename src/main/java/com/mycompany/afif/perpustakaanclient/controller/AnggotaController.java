@@ -5,16 +5,17 @@
 package com.mycompany.afif.perpustakaanclient.Controller;
 
 import com.mycompany.afif.perpustakaanclient.FormAnggota;
-import com.mycompany.afif.perpustakaanclient.Model.Anggota;
+
 
 import com.mycompany.afif.perpustakaanclient.Service.AnggotaService;
+import com.mycompany.afif.perpustakaanclient.model.Anggota;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author hp
+ * @author Apip
  */
 public class AnggotaController {
     private final AnggotaService anggotaService;
@@ -35,8 +36,8 @@ public class AnggotaController {
         Long id = Long.parseLong(formAnggota.getTxtAnggotaId().getText());
         Anggota anggota = anggotaService.getAnggota(id);
         if(anggota!=null){
-            formAnggota.getTxtAnggotaName().setText(anggota.getAnggotaName());
-            formAnggota.getTxtAnggotaAddress().setText(anggota.getAnggotaAddress());
+            formAnggota.getTxtAnggotaName().setText(anggota.getNama());
+            formAnggota.getTxtAnggotaAddress().setText(anggota.getAlamat());
         }else{
             JOptionPane.showMessageDialog(formAnggota, "Data Tidak Ditemukan");
         }
@@ -44,8 +45,8 @@ public class AnggotaController {
     
     public void saveAnggota(){
         Anggota anggota = new Anggota();
-        anggota.setAnggotaName(formAnggota.getTxtAnggotaName().getText());
-        anggota.setAnggotaAddress(formAnggota.getTxtAnggotaAddress().getText());
+        anggota.setNama(formAnggota.getTxtAnggotaName().getText());
+        anggota.setAlamat(formAnggota.getTxtAnggotaAddress().getText());
         anggota = anggotaService.saveAnggota(anggota);
         if (anggota != null){
             formAnggota.getTxtAnggotaId().setText(anggota.getAnggotaId().toString());
@@ -57,8 +58,8 @@ public class AnggotaController {
     public void updateAnggota(){
         Anggota anggota = new Anggota();
         anggota.setAnggotaId(Long.parseLong(formAnggota.getTxtAnggotaId().getText()));
-        anggota.setAnggotaName(formAnggota.getTxtAnggotaName().getText());
-        anggota.setAnggotaAddress(formAnggota.getTxtAnggotaAddress().getText());
+        anggota.setNama(formAnggota.getTxtAnggotaName().getText());
+        anggota.setAlamat(formAnggota.getTxtAnggotaAddress().getText());
         anggota = anggotaService.updateAnggota(anggota);
         if (anggota != null){
             formAnggota.getTxtAnggotaId().setText(anggota.getAnggotaId().toString());
@@ -81,8 +82,8 @@ public class AnggotaController {
         for (Anggota anggota : anggotaList){
             Object[] row = {
                 anggota.getAnggotaId(),
-                anggota.getAnggotaName(),
-                anggota.getAnggotaAddress()
+                anggota.getNama(),
+                anggota.getAlamat()
             };
             tabelModel.addRow(row);
         }

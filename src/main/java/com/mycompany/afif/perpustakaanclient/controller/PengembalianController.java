@@ -28,7 +28,7 @@ public class PengembalianController {
     public void bersihForm(){
         formPengembalian.getTxtPengembalianId().setText("");
         formPengembalian.getTxtPeminjamanId().setText("");
-        formPengembalian.getTxtTanggalDikemballikan().setText("");
+ 
     }
     
     public void getPengembalianId(){
@@ -36,7 +36,6 @@ public class PengembalianController {
         Pengembalian pengembalian = pengembalianService.getPengembalian(id);
         if(pengembalian!=null){
             formPengembalian.getTxtPeminjamanId().setText(pengembalian.getPengembalianId().toString());
-            formPengembalian.getTxtTanggalDikemballikan().setText(pengembalian.getTglDiKembalikan());
         }else{
             JOptionPane.showMessageDialog(formPengembalian, "Data Tidak Ditemukan");
         }
@@ -45,7 +44,6 @@ public class PengembalianController {
     public void savePengembalian() {
         Pengembalian pengembalian = new Pengembalian();
         pengembalian.setPeminjamanId(Long.parseLong(formPengembalian.getTxtPeminjamanId().getText()));
-        pengembalian.setTglDiKembalikan(formPengembalian.getTxtTanggalDikemballikan().getText());
         pengembalian = pengembalianService.savePengembalian(pengembalian);
         if (pengembalian != null) {
             formPengembalian.getTxtPengembalianId().setText(pengembalian.getPengembalianId().toString());
@@ -58,8 +56,7 @@ public class PengembalianController {
      public void updatePengembalian() {
         Pengembalian pengembalian = new Pengembalian();
         pengembalian.setPengembalianId(Long.parseLong(formPengembalian.getTxtPengembalianId().getText()));
-        pengembalian.setTglDiKembalikan(formPengembalian.getTxtTanggalDikemballikan().getText());
-        pengembalian = pengembalianService.savePengembalian(pengembalian);
+        pengembalian = pengembalianService.updatePengembalian(pengembalian);
         if (pengembalian != null) {
             formPengembalian.getTxtPengembalianId().setText(pengembalian.getPengembalianId().toString());
             JOptionPane.showMessageDialog(formPengembalian, "Update Data Berhasil");
@@ -69,7 +66,7 @@ public class PengembalianController {
     }
     
     public void deletePengembalian(){
-        Long id = Long.parseLong(formPengembalian.getTxtPeminjamanId().getText());
+        Long id = Long.parseLong(formPengembalian.getTxtPengembalianId().getText());
         pengembalianService.deletePengembalian(id);
         JOptionPane.showMessageDialog(formPengembalian, "Delete Data Berhasil");
     }
@@ -84,7 +81,7 @@ public class PengembalianController {
                 pengembalian.getPeminjamanId(),
                 pengembalian.getTglDiKembalikan(),
                 pengembalian.getTerlambat(),
-                pengembalian.getDenda(),
+                pengembalian.getDenda()
             };
             tabelModel.addRow(row);
         }

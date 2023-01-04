@@ -5,7 +5,8 @@
 package com.mycompany.afif.perpustakaanclient.Service;
 
 import com.google.gson.Gson;
-import com.mycompany.afif.perpustakaanclient.Model.Anggota;
+import com.mycompany.afif.perpustakaanclient.model.Anggota;
+
 import java.util.List;
 import kong.unirest.GenericType;
 import kong.unirest.HttpResponse;

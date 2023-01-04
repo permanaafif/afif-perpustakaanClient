@@ -2,11 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.afif.perpustakaanclient.Model;
+package com.mycompany.afif.perpustakaanclient.model;
 
 /**
  *
- * @author hp
+ * @author Apip
  */
 public class Anggota {
     private Long anggotaId;
@@ -21,20 +21,20 @@ public class Anggota {
         this.anggotaId = anggotaId;
     }
 
-    public String getAnggotaName() {
+    public String getNama() {
         return nama;
     }
 
-    public void setAnggotaName(String anggotaName) {
-        this.nama = anggotaName;
+    public void setNama(String nama) {
+        this.nama = nama;
     }
 
-    public String getAnggotaAddress() {
+    public String getAlamat() {
         return alamat;
     }
 
-    public void setAnggotaAddress(String anggotaAddress) {
-        this.alamat = anggotaAddress;
+    public void setAlamat(String alamat) {
+        this.alamat = alamat;
     }
     
     

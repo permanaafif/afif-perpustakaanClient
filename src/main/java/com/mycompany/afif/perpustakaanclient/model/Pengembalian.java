@@ -6,7 +6,7 @@ package com.mycompany.afif.perpustakaanclient.model;
 
 /**
  *
- * @author hp
+ * @author Apip
  */
 public class Pengembalian {
     private Long pengembalianId;
