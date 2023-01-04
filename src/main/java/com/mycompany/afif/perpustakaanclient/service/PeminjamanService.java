@@ -21,8 +21,9 @@ public class PeminjamanService {
    private final String URL = "http://localhost:8001";
     
     public Peminjaman getPeminjaman(Long peminjamanId){
-        Peminjaman peminjaman = Unirest.get(URL+"/buku/"+peminjamanId).asObject(Peminjaman.class).getBody();
-        if (peminjaman !=null){
+        Peminjaman peminjaman = Unirest.get(URL+"/peminjaman/"+peminjamanId)
+                .asObject(Peminjaman.class).getBody();
+        if (peminjaman!=null){
             return peminjaman;
         }
         return null;

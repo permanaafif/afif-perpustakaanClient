@@ -4,6 +4,7 @@
  */
 package com.mycompany.afif.perpustakaanclient;
 
+import com.mycompany.afif.perpustakaanclient.controller.PeminjamanController;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
@@ -16,8 +17,12 @@ public class FormPeminjaman extends javax.swing.JFrame {
     /**
      * Creates new form FormPeminjaman
      */
+    PeminjamanController controller;
     public FormPeminjaman() {
         initComponents();
+        controller = new PeminjamanController(this);
+        controller.bersihForm();
+        controller.viewTable();
     }
 
     public JTable getTabelPeminjaman() {
@@ -44,6 +49,28 @@ public class FormPeminjaman extends javax.swing.JFrame {
         return txtTglPinjam;
     }
 
+    public void setTxtAnggotaId(JTextField txtAnggotaId) {
+        this.txtAnggotaId = txtAnggotaId;
+    }
+
+    public void setTxtBukuId(JTextField txtBukuId) {
+        this.txtBukuId = txtBukuId;
+    }
+
+    public void setTxtPeminjamanId(JTextField txtPeminjamanId) {
+        this.txtPeminjamanId = txtPeminjamanId;
+    }
+
+    public void setTxtTglKembali(JTextField txtTglKembali) {
+        this.txtTglKembali = txtTglKembali;
+    }
+
+    public void setTxtTglPinjam(JTextField txtTglPinjam) {
+        this.txtTglPinjam = txtTglPinjam;
+    }
+    
+    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -61,7 +88,6 @@ public class FormPeminjaman extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         txtPeminjamanId = new javax.swing.JTextField();
-        btnCari = new javax.swing.JButton();
         txtBukuId = new javax.swing.JTextField();
         txtAnggotaId = new javax.swing.JTextField();
         txtTglPinjam = new javax.swing.JTextField();
@@ -72,6 +98,7 @@ public class FormPeminjaman extends javax.swing.JFrame {
         btnCancel = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabelPeminjaman = new javax.swing.JTable();
+        btnCari = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -100,13 +127,6 @@ public class FormPeminjaman extends javax.swing.JFrame {
 
         txtPeminjamanId.setText("jTextField1");
 
-        btnCari.setText("Cari");
-        btnCari.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCariActionPerformed(evt);
-            }
-        });
-
         txtBukuId.setText("jTextField2");
 
         txtAnggotaId.setText("jTextField3");
@@ -116,8 +136,18 @@ public class FormPeminjaman extends javax.swing.JFrame {
         txtTglKembali.setText("jTextField5");
 
         btnSave.setText("Save");
+        btnSave.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSaveMouseClicked(evt);
+            }
+        });
 
         btnUpdate.setText("Update");
+        btnUpdate.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnUpdateMouseClicked(evt);
+            }
+        });
         btnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUpdateActionPerformed(evt);
@@ -125,19 +155,29 @@ public class FormPeminjaman extends javax.swing.JFrame {
         });
 
         btnDelete.setText("Delete");
+        btnDelete.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnDeleteMouseClicked(evt);
+            }
+        });
 
         btnCancel.setText("Cancel");
+        btnCancel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCancelMouseClicked(evt);
+            }
+        });
 
         tabelPeminjaman.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Peminjaman ID", "Tanggal Pinjam", "Tanggal Kembali", "Anggota ID", "Nama", "Alamat", "Buku ID", "Kode", "Judul", "Penerbit", "Tahun Terbit"
+                "Peminjaman ID", "Anggota ID", "Buku ID", "Tanggal Pinjam", "Tanggal Kembali"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, true, false, true, true, false, true, true, true, true
+                false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -146,6 +186,18 @@ public class FormPeminjaman extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tabelPeminjaman);
 
+        btnCari.setText("Cari");
+        btnCari.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCariMouseClicked(evt);
+            }
+        });
+        btnCari.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCariActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -153,36 +205,33 @@ public class FormPeminjaman extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1095, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5))
+                        .addGap(32, 32, 32)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel5))
-                                .addGap(32, 32, 32)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(txtPeminjamanId, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnCari))
-                                    .addComponent(txtBukuId)
-                                    .addComponent(txtAnggotaId)
-                                    .addComponent(txtTglPinjam)
-                                    .addComponent(txtTglKembali)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnSave)
+                                .addComponent(txtPeminjamanId, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnUpdate)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnDelete)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnCancel)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                                .addComponent(btnCari))
+                            .addComponent(txtBukuId)
+                            .addComponent(txtTglPinjam)
+                            .addComponent(txtAnggotaId)
+                            .addComponent(txtTglKembali)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnSave)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnUpdate)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnDelete)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCancel))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -223,13 +272,44 @@ public class FormPeminjaman extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void btnSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSaveMouseClicked
+        // TODO add your handling code here:
+        controller.savePeminjaman();
+        controller.bersihForm();
+        controller.viewTable();
+    }//GEN-LAST:event_btnSaveMouseClicked
+
+    private void btnUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUpdateMouseClicked
+        // TODO add your handling code here:
+        controller.updatePeminjaman();
+        controller.bersihForm();
+        controller.viewTable();
+    }//GEN-LAST:event_btnUpdateMouseClicked
+
+    private void btnDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteMouseClicked
+        // TODO add your handling code here:
+        controller.deletePeminjaman();
+        controller.bersihForm();
+        controller.viewTable();
+    }//GEN-LAST:event_btnDeleteMouseClicked
+
+    private void btnCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseClicked
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_btnCancelMouseClicked
+
     private void btnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCariActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCariActionPerformed
 
-    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+    private void btnCariMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCariMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnUpdateActionPerformed
+        controller.getPeminjamanId();
+    }//GEN-LAST:event_btnCariMouseClicked
 
     /**
      * @param args the command line arguments
