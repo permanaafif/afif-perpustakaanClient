@@ -132,11 +132,11 @@ public class FormPengembalian extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Pengembalian Id", "Peminjaman Id", "Tgl Dikembalikan", "Telat", "Denda", "Nama"
+                "Pengembalian Id", "Peminjaman Id", "Tgl Dikembalikan", "Telat", "Denda"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
